@@ -1,0 +1,59 @@
+<!DOCTYPE logback>
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern><![CDATA[date:%d{yyyy-MM-dd HH:mm:ss}\tthread:%thread\tlevel:%-5level\tlogger:%-48logger{48}\tmessage:%msg%n]]></pattern>
+        </encoder>
+    </appender>
+
+    <appender name="APPLICATION_LOG_FILE"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>log/projectName-application.log</file>
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>log/projectName-application-%d{yyyyMMdd}.log
+            </fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern><![CDATA[date:%d{yyyy-MM-dd HH:mm:ss}\tthread:%thread\tlevel:%-5level\tlogger:%-48logger{48}\tmessage:%msg%n]]></pattern>
+        </encoder>
+    </appender>
+
+    <appender name="MONITORING_LOG_FILE"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>log/projectName-monitoring.log</file>
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>log/projectName-monitoring-%d{yyyyMMdd}.log
+            </fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern><![CDATA[date:%d{yyyy-MM-dd HH:mm:ss}\tlevel:%-5level\tmessage:%msg%n]]></pattern>
+        </encoder>
+    </appender>
+
+    <logger name="app">
+        <level value="debug" />
+    </logger>
+
+    <logger name="domain">
+        <level value="debug" />
+    </logger>
+
+    <!-- 3rdparty Loggers -->
+    <logger name="org.springframework">
+        <level value="warn" />
+    </logger>
+
+
+    <root level="warn">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="APPLICATION_LOG_FILE" />
+    </root>
+
+</configuration>
